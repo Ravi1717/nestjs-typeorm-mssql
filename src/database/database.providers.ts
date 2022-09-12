@@ -6,11 +6,11 @@ export const databaseProviders = [
         useFactory: async ()=>{
             const dataSource = new DataSource({
                 type:'mssql',
-                host:'localhost',
+                host:'db',
                 port:1433,
-                username:'**',
+                username:'***',
                 password:'***',
-                database:'***',
+                //database:'bookstore',
                 //autoLoadEntities: true,
                 synchronize: true,
                 options: { encrypt: false },
