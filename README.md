@@ -24,6 +24,8 @@
 
 ## Description
 
+Nest Js project structure setup with TypeORM MS SQL SERVER and DOCKER.
+
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
