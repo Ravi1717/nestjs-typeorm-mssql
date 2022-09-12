@@ -6,6 +6,7 @@ export const databaseProviders = [
         useFactory: async ()=>{
             const dataSource = new DataSource({
                 type:'mssql',
+                //when running the app without docker change hostname to <<localhost>>
                 host:'db',
                 port:1433,
                 username:'***',

@@ -8,7 +8,7 @@ export class BooksService {
         @Inject('BOOK_REPOSITORY')
         private bookRepository: Repository<Book>,
     ) {}
-    async findAll(): Promise<Book[]>{
+    async findAll(){
         //return 'Hello from nestjs application!'
         return this.bookRepository.find();
     }

@@ -6,7 +6,8 @@ export class BooksController {
     constructor(private readonly bookService: BooksService){}
 
     @Get('/getAllBook')
-    findAll(){
-        return this.bookService.findAll();
+    async findAll(){
+        const data = await this.bookService.findAll();
+        console.log('nestjs data', data);
     }
 }
