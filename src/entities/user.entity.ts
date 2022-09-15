@@ -1,4 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Role } from "src/enums/user.enum";
+
+export type UserRoleType = "admin" | "user"
+
 
 @Entity()
 export class User {
@@ -6,17 +10,17 @@ export class User {
     id: number;
 
     @Column({ length: 500 })
-    userName: string
+    name: string
 
-    @Column('text')
-    image: string
-
-    @Column({ length: 50 })
+    @Column({ length: 500 })
     address: string
 
-    @Column()
-    phone: number
-
-    @Column()
-    state: string
+    @Column(
+        {
+            //type: "simple-enum",
+            enum: Role,
+            default: "user",
+        }
+    )
+    roles: Role
 }

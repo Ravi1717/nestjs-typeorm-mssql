@@ -9,8 +9,8 @@ export const databaseProviders = [
                 //when running the app without docker change hostname to <<localhost>>
                 host:'db',
                 port:1433,
-                username:'***',
-                password:'***',
+                username:'sa',
+                password:'Matrix@2022',
                 //database:'bookstore',
                 //autoLoadEntities: true,
                 synchronize: true,

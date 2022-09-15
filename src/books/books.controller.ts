@@ -1,20 +1,25 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, SetMetadata } from '@nestjs/common';
 import { BooksDTO } from './book.interface';
 import { BooksService } from './books.service';
+import { ValidationPipe } from 'src/custom-pipes/validation.pipe';
+import { Role } from 'src/enums/user.enum';
+import {Roles} from '../custom-decorator/roles.decorator';
 
 @Controller()
 export class BooksController {
     constructor(private readonly bookService: BooksService){}
 
     @Get('/getAllBooks')
-    async getAllBooks(){
+    @HttpCode(200)
+    async getAllBooks():Promise<object>{
         const data = await this.bookService.findAll();
         console.log('nestjs data', data);
         return data;
     }
 
     @Post('/createBook')
-    async createBooks(@Body() data:BooksDTO){
+    @Roles(Role.ADMIN, Role.USER)
+    async createBooks(@Body() data:BooksDTO):Promise<object>{
         const user = await this.bookService.create(data);
         return{
             statusCode: HttpStatus.OK,
@@ -24,7 +29,7 @@ export class BooksController {
     }
 
     @Get('/readBook/:id')
-    async readBook(@Param('id') id:number){
+    async readBook(@Param('id',ValidationPipe) id:number){
         const data = await this.bookService.read(id);
         return{
             statusCodee: HttpStatus.OK,
