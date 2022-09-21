@@ -21,8 +21,10 @@ export class RolesGuard implements CanActivate {
     const user: User = {
       id:5,
       name: "Nishant",
+      password:'',
       roles: Role.ADMIN,
-      address:'kolkata'
+      address:'kolkata',
+      books:[]
     };
     return requireRoles.some((role) => user.roles.includes(role));
   }

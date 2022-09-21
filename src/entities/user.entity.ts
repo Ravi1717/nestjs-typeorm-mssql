@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { Role } from "src/enums/user.enum";
+import { Book } from "./book.entity";
 
 export type UserRoleType = "admin" | "user"
 
@@ -12,6 +13,9 @@ export class User {
     @Column({ length: 500 })
     name: string
 
+    @Column({ nullable: true })
+    password: string
+
     @Column({ length: 500 })
     address: string
 
@@ -23,4 +27,7 @@ export class User {
         }
     )
     roles: Role
+
+    @OneToMany(() => Book, (book) => book.user)
+    books: Book[]
 }

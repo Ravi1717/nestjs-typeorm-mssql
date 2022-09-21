@@ -1,3 +1,5 @@
+import { Category } from "src/entities/category.entity";
+
 export interface BooksDTO {
     id: number;
     bookName: string;
@@ -5,4 +7,6 @@ export interface BooksDTO {
     authorName: string;
     bookPrice: number;
     isPublished: boolean;
+    userId:number;
+    categories:Category[]
 }

@@ -4,6 +4,10 @@ import { BooksService } from './books.service';
 import { ValidationPipe } from 'src/custom-pipes/validation.pipe';
 import { Role } from 'src/enums/user.enum';
 import {Roles} from '../custom-decorator/roles.decorator';
+import { UsersDTO } from './user.interface';
+import { UserCheck } from 'src/custom-decorator/user.decorator';
+import { User } from 'src/entities/user.entity';
+import { CategoryDTO } from './category.interface';
 
 @Controller()
 export class BooksController {
@@ -54,6 +58,27 @@ export class BooksController {
         return{
             statusCode: HttpStatus.OK,
             message: 'Book deleted successfully'
+        }
+    }
+
+    @Post('/createUser')
+    async createUser(@UserCheck() user2:User, @Body() data:UsersDTO):Promise<object>{
+        console.log('user check returning in context', user2)
+        const user = await this.bookService.createUser(data);
+        return{
+            statusCode: HttpStatus.OK,
+            message: 'User created successfully',
+            user
+        }
+    }
+
+    @Post('/createCategory')
+    async createCategory(@Body() data:CategoryDTO):Promise<object>{
+        const category = await this.bookService.createCategory(data);
+        return{
+            statusCode: HttpStatus.OK,
+            message: 'Category created successfully',
+            category
         }
     }
 }

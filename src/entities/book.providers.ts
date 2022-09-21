@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm";
 import {Book} from './book.entity';
+import{User} from './user.entity';
 
 
 export const bookProviders = [
@@ -9,3 +10,4 @@ export const bookProviders = [
         inject: ['DATA_SOURCE'],
     }
 ]
+
