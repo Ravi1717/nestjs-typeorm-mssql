@@ -22,7 +22,7 @@ export class RolesGuard implements CanActivate {
       id:5,
       name: "Nishant",
       password:'',
-      roles: Role.ADMIN,
+      roles: Role.USER,
       address:'kolkata',
       books:[]
     };

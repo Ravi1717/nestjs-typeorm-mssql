@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, SetMetadata } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, SetMetadata, UseGuards } from '@nestjs/common';
 import { BooksDTO } from './book.interface';
 import { BooksService } from './books.service';
 import { ValidationPipe } from 'src/custom-pipes/validation.pipe';
@@ -8,13 +8,15 @@ import { UsersDTO } from './user.interface';
 import { UserCheck } from 'src/custom-decorator/user.decorator';
 import { User } from 'src/entities/user.entity';
 import { CategoryDTO } from './category.interface';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller()
 export class BooksController {
     constructor(private readonly bookService: BooksService){}
 
+    @UseGuards(JwtAuthGuard)
     @Get('/getAllBooks')
-    @HttpCode(200)
+    @Roles(Role.USER)
     async getAllBooks():Promise<object>{
         const data = await this.bookService.findAll();
         console.log('nestjs data', data);
