@@ -17,7 +17,7 @@ export class BooksController {
     @UseGuards(JwtAuthGuard)
     @Get('/getAllBooks')
     @HttpCode(200)
-    @Roles(Role.USER)
+    @Roles(Role.ADMIN)
     async getAllBooks():Promise<object>{
         const data = await this.bookService.findAll();
         console.log('nestjs data', data);
