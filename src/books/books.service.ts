@@ -25,7 +25,7 @@ export class BooksService {
         let data2={};;
         //console.log('data', data);
         const user = await this.userRepository.findOne({where:{id:2}});
-        const category = await this.categoryRepository.findOne({where:{name:'Adventure'}});
+        const category = await this.categoryRepository.findOne({where:{name:'Action'}});
         console.log('category',category);
         data2={
             bookName: data.bookName,
@@ -81,5 +81,9 @@ export class BooksService {
     async findUser(username: string, password: string){
         const user = this.userRepository.findOne({where:{name:username}});
         return user;
+    }
+
+    async getBookByProcedure(id:number){
+        return await this.userRepository.query("getAllBooks @id='"+id+"'");
     }
 }

@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { Role } from "src/enums/user.enum";
 import { Book } from "./book.entity";
+import { Permission } from "src/enums/permission.enum";
 
 export type UserRoleType = "admin" | "user"
 
@@ -27,6 +28,12 @@ export class User {
         }
     )
     roles: Role
+
+    @Column({
+        enum: Permission,
+        default:"CreateCategory"
+    })
+    permissions: Permission
 
     @OneToMany(() => Book, (book) => book.user)
     books: Book[]

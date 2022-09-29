@@ -33,8 +33,7 @@ export class RolesGuard implements CanActivate {
   })() : void 0
 
   
-  let decodedJwtAccessToken = this.jwtService.decode(tokenBearer) as {
-    [key: string]: any;
+  let decodedJwtAccessToken = this.jwtService.decode(tokenBearer) as { [key: string]: any;
 };
 
    if (decodedJwtAccessToken) {

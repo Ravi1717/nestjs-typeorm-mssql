@@ -9,15 +9,18 @@ import { UserCheck } from 'src/custom-decorator/user.decorator';
 import { User } from 'src/entities/user.entity';
 import { CategoryDTO } from './category.interface';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import PermissionGuard from '../guards/permissions.guard';
+import { Permission } from 'src/enums/permission.enum';
 
 @Controller()
 export class BooksController {
     constructor(private readonly bookService: BooksService){}
 
-    @UseGuards(JwtAuthGuard)
     @Get('/getAllBooks')
+    @UseGuards(JwtAuthGuard)
+    @Roles(Role.ADMIN, Role.USER)
+    @UseGuards(PermissionGuard(Permission.CreateCategory))
     @HttpCode(200)
-    @Roles(Role.ADMIN)
     async getAllBooks():Promise<object>{
         const data = await this.bookService.findAll();
         console.log('nestjs data', data);
@@ -25,7 +28,8 @@ export class BooksController {
     }
 
     @Post('/createBook')
-    @Roles(Role.ADMIN, Role.USER)
+    @Roles(Role.ADMIN)
+    @UseGuards(PermissionGuard(Permission.CreateCategory))
     async createBooks(@Body() data:BooksDTO):Promise<object>{
         const user = await this.bookService.create(data);
         return{
@@ -82,6 +86,16 @@ export class BooksController {
             statusCode: HttpStatus.OK,
             message: 'Category created successfully',
             category
+        }
+    }
+
+    @Get('/readBookByProcedure/:id')
+    async getBookByProcedure(@Param('id') id:number){
+        const data = await this.bookService.getBookByProcedure(id);
+        return{
+            statusCodee: HttpStatus.OK,
+            message:'Book fetched successfully',
+            data,
         }
     }
 }
